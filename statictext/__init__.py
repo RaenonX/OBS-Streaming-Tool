@@ -1,0 +1,1 @@
+from .statictext import StaticTextReader

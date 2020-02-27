@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<title>OBS Tool</title>
+<head>
+    <style>
+        html, body {
+            margin: 0;
+            font-family: "Microsoft JhengHei", serif;
+            font-size: 28px;
+            overflow: hidden;
+        }
+
+        div {
+            vertical-align: middle;
+            text-align: left;
+
+            color: #fff;
+        }
+
+        div#frame {
+            background-color: rgba(30, 30, 30, 0.6);
+        }
+
+        div#frame, div#marquee {
+            height: 76px;
+            max-height: 76px;
+
+            display: table-cell;
+        }
+
+        div#frame, div#content {
+            width: 100vw;
+        }
+
+        div#marquee {
+            animation: marquee 5s linear infinite;
+            padding: 0 10px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translate(0, 100%);
+            }
+            30% {
+                transform: translate(0, 0);
+            }
+            70% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(0, -100%);
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            refreshMarquee();
+            document.getElementById("marquee").addEventListener("animationiteration", refreshMarquee);
+        };
+
+        function httpGet(url) {
+            let xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", url, false); // false for synchronous request
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+
+        function refreshMarquee() {
+            document.getElementById("content").innerHTML = httpGet("{{ url_for("get_content") }}");
+        }
+    </script>
+</head>
+<body>
+<div id="frame">
+    <div id="marquee">
+        <div id="content"></div>
+    </div>
+</div>
+</body>
+</html>
