@@ -2,15 +2,13 @@ import sys
 
 import requests
 
-__all__ = ["YoutubeDataAPIv3"]
-
 
 class YoutubeDataAPIv3:
     URL = "https://www.googleapis.com/youtube/v3/videos"
 
     def get_current_viewer_url(self):
         return f"{YoutubeDataAPIv3.URL}?part=liveStreamingDetails" \
-               f"&id={self._api_key}&key={self._api_key}" \
+               f"&id={self._video_id}&key={self._api_key}" \
                "&fields=items%2FliveStreamingDetails%2FconcurrentViewers"
 
     def __init__(self, api_key, video_id, *, current_viewer_format=None):
