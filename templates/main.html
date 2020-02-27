@@ -19,6 +19,7 @@
 
         div#frame {
             background-color: rgba(30, 30, 30, 0.6);
+            width: 100vw;
         }
 
         div#frame, div#marquee {
@@ -29,12 +30,14 @@
         }
 
         div#frame, div#content {
-            width: 100vw;
         }
 
         div#marquee {
             animation: marquee 5s linear infinite;
-            padding: 0 10px;
+        }
+
+        div#content {
+            margin: 0 10px;
         }
 
         @keyframes marquee {

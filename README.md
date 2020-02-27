@@ -2,7 +2,11 @@
 
 This was created to enable marquee (with pause) effect in OBS.
 
-Developed under Python 3.8.
+### Notes
+
+- Developed under Python 3.8.
+
+- Running from multiple sources will result in some contents being skipped.
 
 ### Usage
 
