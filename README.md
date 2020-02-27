@@ -12,11 +12,13 @@ This was created to enable marquee (with pause) effect in OBS.
 
 1. Run `py -m flask run`.
 
-    - Be sure to install flask in your Python environment.
+    - Be sure to install `flask` in your Python environment.
 
 2. Create a `Browser` source with the URL which flask is running on. Default to `http://127.0.0.1/5000`.
 
-    - The dimension was defaulted to 1920px x 72px, however it's customizable via `templates/main.html`.
+    - The height is defaulted to 72px with the font size of 28px. Approximately 2 lines max without weird output.
+    
+    - All things above are customizable by modifying `templates/main.html`.
 
 ### Setup
 
@@ -30,7 +32,7 @@ There are 3 components of this tool:
 
     - Currently only support "current viewers"
 
-To "install" or "uninstall" the component, go to `content.py` and change the variable `input_fns`.
+> To "install" or "uninstall" the component, go to `content.py` and change the variable `input_fns`.
 
 `FILE` Components
 
@@ -71,3 +73,7 @@ To "install" or "uninstall" the component, go to `content.py` and change the var
     - `YT_VIDEO_ID`: The video ID to track the current viewers
     
     - `YT_API_KEY`: The API key acquired using Google Cloud Console
+    
+- Note
+
+    - Output will be skipped if the current viewer is 0 or inaccessible.
