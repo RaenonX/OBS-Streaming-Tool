@@ -32,8 +32,12 @@
         div#frame, div#content {
         }
 
-        div#marquee {
-            animation: marquee 5s linear infinite;
+        div#marquee.marquee-text {
+            animation: marquee 5s linear;
+        }
+
+        div#marquee.marquee-skip {
+            animation: marquee 1s linear;
         }
 
         div#content {
@@ -44,10 +48,10 @@
             0% {
                 transform: translate(0, 100%);
             }
-            30% {
+            10% {
                 transform: translate(0, 0);
             }
-            70% {
+            90% {
                 transform: translate(0, 0);
             }
             100% {
@@ -58,7 +62,6 @@
     <script type="text/javascript">
         window.onload = function () {
             refreshMarquee();
-            document.getElementById("marquee").addEventListener("animationiteration", refreshMarquee);
         };
 
         function httpGet(url) {
@@ -69,7 +72,20 @@
         }
 
         function refreshMarquee() {
-            document.getElementById("content").innerHTML = httpGet("{{ url_for("get_content") }}");
+            let content = httpGet("{{ url_for("get_content") }}");
+            document.getElementById("content").innerHTML = content;
+
+            let cls = document.getElementById("marquee").classList;
+            cls.remove("marquee-text", "marquee-skip");
+
+            void this.clientWidth;  // Trigger DOM reflow, obtained from https://stackoverflow.com/a/47075192/11571888
+
+            if (content) {
+                cls.add("marquee-text");
+            } else {
+                cls.add("marquee-skip");
+            }
+            document.getElementById("marquee").addEventListener("animationend", refreshMarquee);
         }
     </script>
 </head>

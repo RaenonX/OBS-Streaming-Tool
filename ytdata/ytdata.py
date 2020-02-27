@@ -49,11 +49,11 @@ class YoutubeDataAPIv3:
         """
         self._current_viewer_acquired = not self._current_viewer_acquired
 
-        if self._current_viewer_acquired:
-            response = requests.get(self.get_current_viewer_url())
-            if response.status_code == 200:
-                self._update_current_viewer_(response.json())
-
-            return self._current_viewer_format.format(self._current_viewer)
-        else:
+        if not self._current_viewer_acquired:
             return None
+
+        response = requests.get(self.get_current_viewer_url())
+        if response.status_code == 200:
+            self._update_current_viewer_(response.json())
+
+        return self._current_viewer_format.format(self._current_viewer) if self._current_viewer > 0 else None
