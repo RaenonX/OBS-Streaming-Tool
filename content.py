@@ -15,7 +15,7 @@ fb2k = FB2KReader(config.get("Foobar2K", "Path"))
 fb2k.start()
 txt = StaticTextReader(config.get("StaticText", "Path"))
 txt.start()
-ytlive = YoutubeDataAPIv3(os.environ.get("YT_VIDEO_ID"), os.environ.get("YT_KEY"),
+ytlive = YoutubeDataAPIv3(os.environ.get("YT_KEY"), os.environ.get("YT_VIDEO_ID"),
                           current_viewer_format="Youtube 現正觀看人數: {}")
 
 input_idx = 0
