@@ -18,13 +18,13 @@
         }
 
         div#frame {
+            height: 100vh;
+			
             background-color: rgba(30, 30, 30, 0.6);
             width: 100vw;
         }
 
         div#frame, div#marquee {
-            height: 76px;
-            max-height: 76px;
 
             display: table-cell;
         }
@@ -46,7 +46,7 @@
 
         @keyframes marquee {
             0% {
-                transform: translate(0, 100%);
+                transform: translate(0, 100vh);
             }
             10% {
                 transform: translate(0, 0);
@@ -55,7 +55,7 @@
                 transform: translate(0, 0);
             }
             100% {
-                transform: translate(0, -100%);
+                transform: translate(0, -100vh);
             }
         }
     </style>
