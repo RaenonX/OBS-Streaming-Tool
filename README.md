@@ -16,7 +16,7 @@ This was created to enable marquee (with pause) effect in OBS.
 
 2. Create a `Browser` source with the URL which flask is running on. Default to `http://127.0.0.1/5000`.
 
-    - The height is defaulted to 72px with the font size of 28px. Approximately 2 lines max without weird output.
+    - The height is defaulted to `100vh`. The height of the window.
     
     - All things above are customizable by modifying `templates/main.html`.
 
