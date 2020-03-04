@@ -80,7 +80,7 @@
 
             void this.clientWidth;  // Trigger DOM reflow, obtained from https://stackoverflow.com/a/47075192/11571888
 
-            if (content) {
+            if (content.trim()) {
                 cls.add("marquee-text");
             } else {
                 cls.add("marquee-skip");
