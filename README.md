@@ -75,6 +75,8 @@ There are 3 components of this tool:
     - An empty line **without** a white space will make the static texts being outputted separately.
     
         - Output flow: `FB2K -> Static Text (Section 1) -> Youtube -> FB2K -> Static Text (Section 2) -> Youtube -> FB2K -> Static Text (Section 1)...`
+        
+    - Lines beginning with `//` will be skipped.
     
 `Youtube Data API`
    

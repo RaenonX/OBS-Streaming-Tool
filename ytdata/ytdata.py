@@ -12,12 +12,13 @@ class YoutubeDataAPIv3:
                "&fields=items%2FliveStreamingDetails%2FconcurrentViewers"
 
     def __init__(self, api_key, video_id, *, current_viewer_format=None):
+        self._activated = True
+
         if not api_key:
-            print("Youtube Data API v3 - api_key cannot be empty.")
-            sys.exit(1)
+            self._activated = False
+            print("Youtube Data API v3 - api_key is empty, service won't activate.")
         if not video_id:
-            print("Youtube Data API v3 - video_id cannot be empty.")
-            sys.exit(1)
+            print("Youtube Data API v3 - video_id is empty, service won't activate.")
 
         self._api_key = api_key
         self._video_id = video_id
@@ -44,7 +45,12 @@ class YoutubeDataAPIv3:
 
         After this was called once, the next return will be None.
         Then the call after that, the next return will become the formatted string again.
+
+        If the service is not activated, then this will return `None`.
         """
+        if not self._activated:
+            return None
+
         self._current_viewer_acquired = not self._current_viewer_acquired
 
         if not self._current_viewer_acquired:

@@ -24,7 +24,10 @@ class FileReader(abc.ABC):
         return "1" in fs.readline()
 
     def _sanitize_new_(self):
+        # Remove newline characters
         self._out_new = list(map(lambda x: x.replace("\n", ""), self._out_new))
+        # Remove commented lines
+        self._out_new = [x for x in self._out_new if not x.startswith("//")]
 
     def _read_(self):
         while True:
