@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>OBS Tool / Timer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        html, body {
+            font-family: "Consolas", serif;
+            font-size: 72px;
+
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        div {
+            text-align: center;
+        }
+
+        div#content {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        div.count-up {
+            background: linear-gradient(135deg, #b4b4b4, #4bff60);
+        }
+
+        div.count-down {
+            background: linear-gradient(135deg, #b4b4b4, #ff4b4e);
+        }
+
+        div.message {
+            background: linear-gradient(135deg, #b4b4b4, #666);
+        }
+    </style>
+    <script type="text/javascript">
+        window.setInterval(refreshTimer, 1000)
+
+        function httpGet(url) {
+            const xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", url, false); // false for synchronous request
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+
+        function updateTimerClass(elem, classToAdd) {
+            if (!elem.classList.contains(classToAdd)) {
+                elem.classList.remove("count-up", "count-down", "message");
+                elem.classList.add(classToAdd);
+            }
+        }
+
+        function refreshTimer() {
+            const elem = document.getElementById("content");
+            let expr = httpGet(`{{ url_for("get_timer_text") }}?${new URL(window.location.href).searchParams.toString()}`);
+
+            const status = expr.charAt(0);
+            if (status === "+") {
+                updateTimerClass(elem, "count-up");
+                expr = expr.substring(1);
+            } else if (status === "-") {
+                updateTimerClass(elem, "count-down");
+                expr = expr.substring(1);
+            } else {
+                updateTimerClass(elem, "message");
+            }
+
+            elem.innerHTML = expr;
+        }
+    </script>
+</head>
+<body>
+<div id="frame">
+    <div id="content" class="pos-center no-line-break"></div>
+</div>
+</body>
+</html>

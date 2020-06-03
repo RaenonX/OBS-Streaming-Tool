@@ -12,7 +12,9 @@ This was created to enable marquee (with pause) effect in OBS and to share the r
 
 - Developed under Python 3.8.
 
-- Running from multiple sources will result in some contents being skipped.
+- Running from multiple sources may result in some contents being skipped.
+
+- Add Custom CSS in `Browser Source` with selector `body` to configure some global style, for example, `font-size`.
 
 ## Usage
 
@@ -100,28 +102,94 @@ There are 3 components of this tool:
 
 ## Endpoints
 
-### `/`
+### To be used on OBS
+
+
+#### `/`
 
 Marquee with styles applied.
 
-### `/dt`
+/ Stylable CSS selector | Description |
+| :---: | :---: |
+| `div#content` | Content of the marquee |
+
+#### `/dt`
 
 Current timestamp expression with styles applied.
 
 Automatically update once a second.
 
-#### Parameter
+| Parameter | Description | Type | Valid Values |
+| :---: |  :-------: |  :---: |  :---: | 
+| `suffix` | Suffix to be attached after the current datetime expression. | Optional | Any string |
 
-- `suffix`: Suffix to be attached after the current datetime expression
+/ Stylable CSS selector | Description |
+| :---: | :---: |
+| `span#date` | Date expression |
+| `span#time` | Time expression |
 
-### `/content/marquee`
+#### `/timer`
+
+Current timer status with styles applied.
+
+| Parameter | Description | Type | Valid Values |
+| :---: |  :-------: |  :---: |  :---: | 
+| `dt` | Target datetime of the timer. | Required | Any expression that could be understood by `python-dateutil`'s parser. |
+| `up` | If the timer should count up. | Optional | `0` or `1` |
+| `end_msg` | End message of the timer. | Optional | Any string |
+
+| Stylable CSS selector | Description |
+| :---: | :---: |
+| `div.count-up` | Timer which is counting up (now > dt) |
+| `div.count-down` | Timer which is counting down (dt > now) |
+| `div.message` | Timer which is expired, displaying end message |
+
+
+#### `/chrono`
+
+Similar to [/timer](#timer). The only difference is that [/timer](#timer) uses a timestamp as the changing point, 
+while this receives a time offset. The time offset will be counted down first, then do the same behavior as [/timer](#timer).
+
+The chrono will restart if the `Browser Source` is refreshed.
+
+| Parameter | Description | Type | Valid Values |
+| :---: |  :-------: |  :---: |  :---: | 
+| `d` | Days of the time offset. | Optional | Any numeric value |
+| `h` | Hours of the time offset. | Optional | Any numeric value |
+| `m` | Minutes of the time offset. | Optional | Any numeric value |
+| `s` | Seconds of the time offset. | Optional | Any numeric value |
+| `up` | If the timer should count up. | Optional | `0` or `1` |
+| `end_msg` | End message of the timer. | Optional | Any string |
+
+| Stylable CSS selector | Description |
+| :---: | :---: |
+| `div.count-up` | Timer which is counting up (now > dt) |
+| `div.count-down` | Timer which is counting down (dt > now) |
+| `div.message` | Timer which is expired, displaying end message |
+
+### For internal use or deeper customization
+
+
+#### `/content/marquee`
 
 Pure text of the next content of the marquee.
 
-### `/content/dt`
+
+#### `/content/dt`
 
 Pure text of the current time.
 
-#### Parameter
+| Parameter | Description | Type | Valid Values |
+| :---: |  :-------: |  :---: |  :---: | 
+| `suffix` | Suffix to be attached after the current datetime expression. | Optional | Any string |
 
-- `suffix`: Suffix to be attached after the current datetime expression
+
+#### `/content/timer`
+
+Current timer status with styles applied.
+
+| Parameter | Description | Type | Valid Values |
+| :---: |  :-------: |  :---: |  :---: | 
+| `dt` | Target datetime of the timer. | Required | Any expression that could be understood by `python-dateutil`'s parser. |
+| `up` | If the timer should count up. | Optional | `0` or `1` |
+| `end_msg` | End message of the timer. | Optional | Any string |

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>OBS Tool</title>
+    <title>OBS Tool / Marquee</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <style>
         html, body {
@@ -56,17 +56,17 @@
         };
 
         function httpGet(url) {
-            let xmlHttp = new XMLHttpRequest();
+            const xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", url, false); // false for synchronous request
             xmlHttp.send(null);
             return xmlHttp.responseText;
         }
 
         function refreshMarquee() {
-            let content = httpGet("{{ url_for("get_content") }}");
+            const content = httpGet("{{ url_for("get_marquee_text") }}");
             document.getElementById("content").innerHTML = content;
 
-            let cls = document.getElementById("marquee").classList;
+            const cls = document.getElementById("marquee").classList;
             cls.remove("marquee-text", "marquee-skip");
 
             void this.clientWidth;  // Trigger DOM reflow, obtained from https://stackoverflow.com/a/47075192/11571888

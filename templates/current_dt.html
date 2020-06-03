@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>OBS Tool</title>
+    <title>OBS Tool / Current Datetime</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <style>
         html, body {
@@ -40,8 +40,8 @@
         }
 
         function refreshCurrentDatetime() {
-            let expr = httpGet(`{{ url_for("get_current_dt_text") }}?${new URL(window.location.href).searchParams.toString()}`);
-            let [date, time] = expr.split("|", 2);
+            const expr = httpGet(`{{ url_for("get_current_dt_text") }}?${new URL(window.location.href).searchParams.toString()}`);
+            const [date, time] = expr.split("|", 2);
 
             document.getElementById("date").innerHTML = date;
             document.getElementById("time").innerHTML = time;
