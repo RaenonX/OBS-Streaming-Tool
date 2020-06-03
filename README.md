@@ -2,19 +2,19 @@
 
 This was created to enable marquee (with pause) effect in OBS and to share the rendering work with OBS.
 
-### Known advantages
+## Known advantages
 
 - Have a marquee effect that OBS does not have.
 
 - Sharing the rendering work with OBS to reduce rendering lag.
 
-### Notes
+## Notes
 
 - Developed under Python 3.8.
 
 - Running from multiple sources will result in some contents being skipped.
 
-### Usage
+## Usage
 
 1. Run `py -m flask run`.
 
@@ -28,7 +28,7 @@ This was created to enable marquee (with pause) effect in OBS and to share the r
     
 For more functions, check the [endpoints](#endpoints) section.
 
-### Setup
+## Setup
 
 There are 3 components of this tool:
 
@@ -48,7 +48,7 @@ There are 3 components of this tool:
 
 - The first line of the file needs to be `1`, or the rest of the file will not be read.
 
-### Components
+## Components
 
 `Foobar2K Now Playing`
 
@@ -98,30 +98,30 @@ There are 3 components of this tool:
 
     - Output will be skipped if the current viewer is 0 or inaccessible.
 
-### Endpoints
+## Endpoints
 
-#### `/`
+### `/`
 
 Marquee with styles applied.
 
-#### `/dt`
+### `/dt`
 
 Current timestamp expression with styles applied.
 
 Automatically update once a second.
 
-##### Parameter
+#### Parameter
 
 - `suffix`: Suffix to be attached after the current datetime expression
 
-#### `/content/marquee`
+### `/content/marquee`
 
 Pure text of the next content of the marquee.
 
-#### `/content/dt`
+### `/content/dt`
 
 Pure text of the current time.
 
-##### Parameter
+#### Parameter
 
 - `suffix`: Suffix to be attached after the current datetime expression
