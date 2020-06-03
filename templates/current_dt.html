@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>OBS Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        html, body {
+            font-family: "Consolas", serif;
+
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        div {
+            text-align: center;
+        }
+
+        div#content {
+            background: linear-gradient(135deg, #ccc, #666);
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        span#date {
+            font-size: 80px;
+        }
+
+        span#time {
+            font-size: 96px;
+        }
+    </style>
+    <script type="text/javascript">
+        window.setInterval(refreshCurrentDatetime, 1000)
+
+        function httpGet(url) {
+            const xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", url, false); // false for synchronous request
+            xmlHttp.send(null);
+            return xmlHttp.responseText;
+        }
+
+        function refreshCurrentDatetime() {
+            let expr = httpGet(`{{ url_for("get_current_dt_text") }}?${new URL(window.location.href).searchParams.toString()}`);
+            let [date, time] = expr.split("|", 2);
+
+            document.getElementById("date").innerHTML = date;
+            document.getElementById("time").innerHTML = time;
+        }
+    </script>
+</head>
+<body>
+<div id="frame">
+    <div id="content" class="pos-center">
+        <span id="date" class="no-line-break"></span><br>
+        <span id="time" class="no-line-break"></span>
+    </div>
+</div>
+</body>
+</html>

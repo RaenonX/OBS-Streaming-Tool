@@ -1,0 +1,24 @@
+html, body {
+    margin: 0;
+    overflow: hidden;
+}
+
+div {
+    vertical-align: middle;
+}
+
+div.pos-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div#frame {
+    height: 100vh;
+    width: 100vw;
+}
+
+.no-line-break {
+    white-space: nowrap;
+}

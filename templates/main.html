@@ -2,34 +2,25 @@
 <html lang="en">
 <head>
     <title>OBS Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <style>
         html, body {
-            margin: 0;
             font-family: "Microsoft JhengHei", serif;
             font-size: 28px;
-            overflow: hidden;
-        }
-
-        div {
-            vertical-align: middle;
-            text-align: left;
 
             color: #fff;
         }
 
+        div {
+            text-align: left;
+        }
+
         div#frame {
-            height: 100vh;
-			
-            background-color: rgba(30, 30, 30, 0.6);
-            width: 100vw;
+            background-color: rgba(30, 30, 30, 0.0);
         }
 
         div#frame, div#marquee {
-
             display: table-cell;
-        }
-
-        div#frame, div#content {
         }
 
         div#marquee.marquee-text {
@@ -37,7 +28,7 @@
         }
 
         div#marquee.marquee-skip {
-            animation: marquee 1s linear;
+            animation: marquee 0.5s linear;
         }
 
         div#content {
@@ -48,10 +39,10 @@
             0% {
                 transform: translate(0, 100vh);
             }
-            10% {
+            8% {
                 transform: translate(0, 0);
             }
-            90% {
+            92% {
                 transform: translate(0, 0);
             }
             100% {

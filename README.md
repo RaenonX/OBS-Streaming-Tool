@@ -1,6 +1,12 @@
 # OBS Streaming Tool
 
-This was created to enable marquee (with pause) effect in OBS.
+This was created to enable marquee (with pause) effect in OBS and to share the rendering work with OBS.
+
+### Known personal advantage
+
+- Have a marquee effect that OBS does not have.
+
+- Sharing the rendering work with OBS to reduce rendering lag.
 
 ### Notes
 
@@ -14,11 +20,13 @@ This was created to enable marquee (with pause) effect in OBS.
 
     - Be sure to install `flask` in your Python environment.
 
-2. Create a `Browser` source with the URL which flask is running on. Default to `http://127.0.0.1/5000`.
+2. Create a `Browser Source` in OBS with the URL which flask is running on. Default to `http://127.0.0.1/5000`.
 
     - The height is defaulted to `100vh`. The height of the window.
     
     - All things above are customizable by modifying `templates/main.html`.
+    
+For more functions, check the [endpoints](#endpoints) section.
 
 ### Setup
 
@@ -89,3 +97,31 @@ There are 3 components of this tool:
 - Note
 
     - Output will be skipped if the current viewer is 0 or inaccessible.
+
+### Endpoints
+
+#### `/`
+
+Marquee with styles applied.
+
+#### `/dt`
+
+Current timestamp expression with styles applied.
+
+Automatically update once a second.
+
+##### Parameter
+
+- `suffix`: Suffix to be attached after the current datetime expression
+
+#### `/content/marquee`
+
+Pure text of the next content of the marquee.
+
+#### `/content/dt`
+
+Pure text of the current time.
+
+##### Parameter
+
+- `suffix`: Suffix to be attached after the current datetime expression
