@@ -2,7 +2,7 @@
 
 This was created to enable marquee (with pause) effect in OBS and to share the rendering work with OBS.
 
-### Known personal advantage
+### Known advantages
 
 - Have a marquee effect that OBS does not have.
 
