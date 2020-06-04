@@ -47,4 +47,4 @@ def get_current_date_time() -> str:
     # Expression will be processed in `current_dt.html`
     tz = _TimezoneRotate.get_tz()
 
-    return datetime.utcnow().astimezone(tz).strftime(f"%Y-%m-%d|%H:%M:%S|{tz.zone}")
+    return datetime.utcnow().replace(tzinfo=pytz.UTC).astimezone(tz).strftime(f"%Y-%m-%d|%H:%M:%S|{tz.zone}")
