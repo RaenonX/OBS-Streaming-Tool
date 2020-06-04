@@ -8,12 +8,12 @@ from ytdata import YoutubeDataAPIv3
 __all__ = ["get_content"]
 
 
-config = get_config()
+_config = get_config()
 
 # Initialize managers
-fb2k = FB2KReader(config.get("Foobar2K", "Path"))
+fb2k = FB2KReader(_config.get("Foobar2K", "Path"))
 fb2k.start()
-txt = StaticTextReader(config.get("StaticText", "Path"))
+txt = StaticTextReader(_config.get("StaticText", "Path"))
 txt.start()
 ytlive = YoutubeDataAPIv3(os.environ.get("YT_KEY"), os.environ.get("YT_VIDEO_ID"),
                           current_viewer_format="Youtube 現正觀看人數: {}")

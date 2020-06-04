@@ -32,13 +32,15 @@ For more functions, check the [endpoints](#endpoints) section.
 
 ## Setup
 
-There are 3 components of this tool:
+### Marquee
 
-- `[FILE]` Foobar2K Now Playing
+There are 3 components of the marquee:
 
-- `[FILE]` Static Text
+- `[FILE]` [Foobar2K Now Playing](#Foobar2K-Now-Playing)
 
-- `[API]` Youtube Data API (v3)
+- `[FILE]` [Static Text](#Static-Text)
+
+- `[API]` [Youtube Data API (v3)](#Youtube-Data-API)
 
     - Currently only support "current viewers"
 
@@ -46,13 +48,11 @@ There are 3 components of this tool:
 
 `FILE` Components
 
-- There's a `Path` field in `config.ini` to specify the file path.
+- There's a `Path` field in `config.ini` to specify the file path for the corresponding component.
 
 - The first line of the file needs to be `1`, or the rest of the file will not be read.
 
-## Components
-
-`Foobar2K Now Playing`
+#### `Foobar2K Now Playing`
 
 - Setup
 
@@ -64,7 +64,7 @@ There are 3 components of this tool:
         
     - Copy the file output path, and paste it under `Foobar2K/Path` in `config.ini`.
     
-`Static Text`
+#### `Static Text`
 
 - Setup
 
@@ -88,17 +88,31 @@ There are 3 components of this tool:
         
     - Lines beginning with `//` will be skipped.
     
-`Youtube Data API`
+#### `Youtube Data API`
    
 - Setup
    
-    - `YT_VIDEO_ID`: The video ID to track the current viewers
+    - Environment variable `YT_VIDEO_ID`: The video ID to track the current viewers
     
-    - `YT_API_KEY`: The API key acquired using Google Cloud Console
+    - Environment variable `YT_API_KEY`: The API key acquired using Google Cloud Console
     
 - Note
 
     - Output will be skipped if the current viewer is 0 or inaccessible.
+    
+### Current datetime
+
+There are a few items to be configured in `config.ini`:
+
+- `Timezone`: list of timezones to be displayed. Separated by comma `,`.
+
+    - Must be the `pytz` timezone identifiers. 
+    
+    - List of the available identifiers can be found [here](https://stackoverflow.com/q/13866926/11571888)
+    
+    - Some common identifiers: `Asia/Taipei` `US/Pacific` `US/Mountain` `US/Central` `US/Eastern`
+    
+- `ToNext`: Count of the calls to change to the timezone.
 
 ## Endpoints
 
@@ -117,20 +131,24 @@ Marquee with styles applied.
 
 Current timestamp expression with styles applied.
 
-Automatically update once a second.
+Automatically update once a second. 
+This can be changed by modifying [`the js in the corresponding template`](/templates/current_dt.html#L33).
 
-| Parameter | Description | Type | Valid Values |
-| :---: |  :-------: |  :---: |  :---: | 
-| `suffix` | Suffix to be attached after the current datetime expression. | Optional | Any string |
+The timezone for the current time will constantly switching between the configured timezone. 
+Check [this section](#Current-datetime) for configuring the corresponding settings.
 
 / Stylable CSS selector | Description |
 | :---: | :---: |
 | `span#date` | Date expression |
 | `span#time` | Time expression |
+| `span#tz` | Timezone expression |
 
 #### `/timer`
 
 Current timer status with styles applied.
+
+Automatically update once a second. 
+This can be changed by modifying [`the js in the corresponding template`](/templates/current_dt.html#L36).
 
 | Parameter | Description | Type | Valid Values |
 | :---: |  :-------: |  :---: |  :---: | 
@@ -178,10 +196,6 @@ Pure text of the next content of the marquee.
 #### `/content/dt`
 
 Pure text of the current time.
-
-| Parameter | Description | Type | Valid Values |
-| :---: |  :-------: |  :---: |  :---: | 
-| `suffix` | Suffix to be attached after the current datetime expression. | Optional | Any string |
 
 
 #### `/content/timer`

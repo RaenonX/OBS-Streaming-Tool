@@ -38,7 +38,7 @@ def get_marquee_text():
 
 @app.route("/content/dt")
 def get_current_dt_text():
-    return get_current_date_time(request.args.get("suffix"))
+    return get_current_date_time()
 
 
 @app.route("/content/timer")

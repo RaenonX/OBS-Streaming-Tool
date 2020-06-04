@@ -28,6 +28,10 @@
         span#time {
             font-size: 96px;
         }
+
+        span#tz {
+            font-size: 36px;
+        }
     </style>
     <script type="text/javascript">
         window.setInterval(refreshCurrentDatetime, 1000)
@@ -41,10 +45,11 @@
 
         function refreshCurrentDatetime() {
             const expr = httpGet(`{{ url_for("get_current_dt_text") }}?${new URL(window.location.href).searchParams.toString()}`);
-            const [date, time] = expr.split("|", 2);
+            const [date, time, tz] = expr.split("|", 3);
 
             document.getElementById("date").innerHTML = date;
             document.getElementById("time").innerHTML = time;
+            document.getElementById("tz").innerHTML = tz;
         }
     </script>
 </head>
@@ -52,7 +57,7 @@
 <div id="frame">
     <div id="content" class="pos-center">
         <span id="date" class="no-line-break"></span><br>
-        <span id="time" class="no-line-break"></span>
+        <span id="time" class="no-line-break"></span>&nbsp;&nbsp;<span id="tz" class="no-line-break"></span>
     </div>
 </div>
 </body>
