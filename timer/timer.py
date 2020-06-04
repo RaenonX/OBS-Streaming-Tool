@@ -4,12 +4,12 @@ from dateutil import parser
 
 
 def _to_time_delta_str(t_delta: timedelta) -> str:
-    h = t_delta.seconds // 3600 + t_delta.days * 24
+    h = t_delta.seconds // 3600
     m = (t_delta.seconds - 3600 * h) // 60
     s = t_delta.seconds % 60
 
     if h > 3:
-        return f"{h:02}:{m:02}:{s:02}"
+        return f"{h + t_delta.days * 24:02}:{m:02}:{s:02}"
     else:
         return f"{h * 60 + m:02}:{s:02}"
 
