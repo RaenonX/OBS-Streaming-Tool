@@ -2,18 +2,26 @@ from datetime import datetime, timedelta
 
 from dateutil import parser
 
+from config import get_config
 
-def _to_time_delta_str(t_delta: timedelta, *, count_down: bool = False) -> str:
+_config = get_config()
+
+
+_DISPLAY_SEC = _config.getint("Timer", "DisplaySec")
+
+
+def _to_time_delta_expr(t_delta: timedelta, *, count_down: bool = False) -> str:
     h = t_delta.seconds // 3600
     m = (t_delta.seconds - 3600 * h) // 60
     s = t_delta.seconds % 60
 
-    if h > 3:
-        return f"{h + t_delta.days * 24:02}:{m:02}:{s:02}"
-    elif int(t_delta.total_seconds()) <= 15 and count_down:
+    if int(t_delta.total_seconds()) <= 15 and count_down:
         return str(s)
-    else:
+
+    if t_delta.total_seconds() < 10800:
         return f"{h * 60 + m:02}:{s:02}"
+
+    return f"{h + t_delta.days * 24:02}:{m:02}:{s:02}"
 
 
 def get_timer_diff(dt_str: str, *, count_up: bool = False, end_message: str = "") -> str:
@@ -57,9 +65,9 @@ def get_timer_diff(dt_str: str, *, count_up: bool = False, end_message: str = ""
     now = datetime.now()
 
     if dt > now:
-        return f"-{_to_time_delta_str(dt - now, count_down=True)}"
+        return f"-{_to_time_delta_expr(dt - now, count_down=True)}"
     else:
-        if count_up:
-            return f"+{_to_time_delta_str(now - dt)}"
-        else:
+        if (not count_up or (now - dt).total_seconds() <= _DISPLAY_SEC) and end_message:
             return end_message
+
+        return f"+{_to_time_delta_expr(now - dt)}"

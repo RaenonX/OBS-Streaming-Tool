@@ -102,15 +102,16 @@
             const isTimer = isPos || isNeg;
 
             if (isTimer) {
+                expr = expr.substring(1);
+
                 if (isPos) {
+                    updateTimerClass(elem, "count-up");
+
                     if (prevIsNeg) {
                         triggerAnimation(elem, "anim-time-up")
                     }
-                    updateTimerClass(elem, "count-up");
-                    expr = expr.substring(1);
                 } else if (isNeg) {
                     updateTimerClass(elem, "count-down");
-                    expr = expr.substring(1);
 
                     if (!expr.includes(":")) {
                         triggerAnimation(elem, "anim-countdown-shock")

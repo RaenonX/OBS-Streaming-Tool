@@ -8,6 +8,8 @@ This was created to enable marquee (with pause) effect in OBS and to share the r
 
 - Sharing the rendering work with OBS to reduce rendering lag.
 
+- Low system resource usage while highly customizable.
+
 ## Notes
 
 - Developed under Python 3.8.
@@ -100,7 +102,7 @@ There are 3 components of the marquee:
 
     - Output will be skipped if the current viewer is 0 or inaccessible.
     
-### Current datetime
+### Current datetime `[CurrentDatetime]`
 
 There are a few items to be configured in `config.ini`:
 
@@ -113,6 +115,13 @@ There are a few items to be configured in `config.ini`:
     - Some common identifiers: `Asia/Taipei` `US/Pacific` `US/Mountain` `US/Central` `US/Eastern`
     
 - `ToNext`: Count of the calls to change to the timezone.
+
+### Timer
+
+There is a configurable setting in `config.ini`:
+
+- `DisplaySec`: Time length in second(s) from time up to display the timer and remove the end message 
+                if `up` is `1` and `end_msg` is given. 
 
 ## Endpoints
 
