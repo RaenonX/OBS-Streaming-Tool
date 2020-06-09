@@ -31,8 +31,40 @@
         div.message {
             background: linear-gradient(135deg, #b4b4b4, #666);
         }
+
+        .anim-countdown-shock {
+            animation-name: countdown-shock;
+            animation-duration: 300ms;
+            animation-timing-function: linear;
+        }
+
+        .anim-time-up {
+            animation-name: time-up;
+            animation-duration: 300ms;
+            animation-timing-function: ease-in;
+        }
+
+        @keyframes countdown-shock {
+            0% {
+                font-size: 500vh;
+            }
+            100% {
+                font-size: revert;
+            }
+        }
+
+        @keyframes time-up {
+            0% {
+                font-size: revert;
+            }
+            100% {
+                font-size: 500vh;
+            }
+        }
     </style>
     <script type="text/javascript">
+        let prevIsNeg = false;
+
         window.setInterval(refreshTimer, 1000)
 
         function httpGet(url) {
@@ -49,22 +81,51 @@
             }
         }
 
+        /**
+         * For some reason, this cannot be moved to be a static shared js file.
+         */
+        function triggerAnimation(elem, animationClass) {
+            elem.classList.remove(animationClass);
+
+            void elem.offsetWidth;  // Trigger DOM reflow, obtained from https://stackoverflow.com/a/47075192/11571888
+
+            elem.classList.add(animationClass);
+        }
+
         function refreshTimer() {
             const elem = document.getElementById("content");
             let expr = httpGet(`{{ url_for("get_timer_text") }}?${new URL(window.location.href).searchParams.toString()}`);
 
             const status = expr.charAt(0);
-            if (status === "+") {
-                updateTimerClass(elem, "count-up");
-                expr = expr.substring(1);
-            } else if (status === "-") {
-                updateTimerClass(elem, "count-down");
-                expr = expr.substring(1);
+            const isPos = status === "+";
+            const isNeg = status === "-";
+            const isTimer = isPos || isNeg;
+
+            if (isTimer) {
+                if (isPos) {
+                    if (prevIsNeg) {
+                        triggerAnimation(elem, "anim-time-up")
+                    }
+                    updateTimerClass(elem, "count-up");
+                    expr = expr.substring(1);
+                } else if (isNeg) {
+                    updateTimerClass(elem, "count-down");
+                    expr = expr.substring(1);
+
+                    if (!expr.includes(":")) {
+                        triggerAnimation(elem, "anim-countdown-shock")
+                    }
+                }
             } else {
+                if (prevIsNeg) {
+                    triggerAnimation(elem, "anim-time-up")
+                }
                 updateTimerClass(elem, "message");
             }
 
             elem.innerHTML = expr;
+
+            prevIsNeg = isNeg;
         }
     </script>
 </head>

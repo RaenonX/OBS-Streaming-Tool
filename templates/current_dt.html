@@ -33,23 +33,20 @@
             font-size: 36px;
         }
 
-        div.anim-blink {
-            animation-name: blink;
-            animation-duration: 300ms;
+        .anim-shimmer {
+            animation-name: shimmer;
+            animation-duration: 1500ms;
         }
 
-        @keyframes blink {
+        @keyframes shimmer {
             0% {
-                opacity: 0;
+                text-shadow: unset;
             }
-            33% {
-                opacity: 1;
-            }
-            67% {
-                opacity: 0;
+            20% {
+                text-shadow: 0 0 2vh #ccc;
             }
             100% {
-                opacity: 1;
+                text-shadow: unset;
             }
         }
     </style>
@@ -65,6 +62,9 @@
             return xmlHttp.responseText;
         }
 
+        /**
+         * For some reason, this cannot be moved to be a static shared js file.
+         */
         function triggerAnimation(elem, animationClass) {
             elem.classList.remove(animationClass);
 
@@ -74,7 +74,6 @@
         }
 
         function refreshCurrentDatetime() {
-            const elem = document.getElementById("content");
             const expr = httpGet(`{{ url_for("get_current_dt_text") }}?${new URL(window.location.href).searchParams.toString()}`);
             const [date, time, tz] = expr.split("|", 3);
 
@@ -85,7 +84,7 @@
             document.getElementById("tz").innerHTML = tz;
 
             if (tzChanged) {
-                triggerAnimation(elem, "anim-blink");
+                triggerAnimation(document.getElementById("content"), "anim-shimmer");
             }
 
             prevTz = tz;
