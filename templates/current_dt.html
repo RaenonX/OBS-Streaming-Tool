@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>OBS Tool / Current Datetime</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/main.css") }}">
     <style>
         body {
             font-family: "Consolas", serif;
@@ -35,7 +35,7 @@
 
         div.anim-blink {
             animation-name: blink;
-            animation-duration: 240ms;
+            animation-duration: 300ms;
         }
 
         @keyframes blink {
@@ -68,7 +68,7 @@
         function triggerAnimation(elem, animationClass) {
             elem.classList.remove(animationClass);
 
-            void elem.offsetWidth;
+            void elem.offsetWidth;  // Trigger DOM reflow, obtained from https://stackoverflow.com/a/47075192/11571888
 
             elem.classList.add(animationClass);
         }

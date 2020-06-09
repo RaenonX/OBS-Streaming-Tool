@@ -170,6 +170,10 @@ while this receives a time offset. The time offset will be counted down first, t
 
 The chrono will restart if the `Browser Source` is refreshed.
 
+To start counting up at the beginning, set the time with a negative value.
+
+For example, to start counting up from 34 mins, set the parameter as `...?m=-34`.
+
 | Parameter | Description | Type | Valid Values |
 | :---: |  :-------: |  :---: |  :---: | 
 | `d` | Days of the time offset. | Optional | Any numeric value |

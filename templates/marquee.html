@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>OBS Tool / Marquee</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/main.css") }}">
     <style>
         body {
             font-family: "Microsoft JhengHei", serif;
@@ -39,10 +39,10 @@
             0% {
                 transform: translate(0, 100vh);
             }
-            8% {
+            7% {
                 transform: translate(0, 0);
             }
-            92% {
+            93% {
                 transform: translate(0, 0);
             }
             100% {
@@ -50,6 +50,7 @@
             }
         }
     </style>
+    <script type="text/javascript" src="{{ url_for("static", filename="js/utils.js") }}"></script>
     <script type="text/javascript">
         window.onload = function () {
             refreshMarquee();
