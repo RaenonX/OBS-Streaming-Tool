@@ -4,7 +4,7 @@
     <title>OBS Tool / Current Datetime</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <style>
-        html, body {
+        body {
             font-family: "Consolas", serif;
 
             background-color: rgba(0, 0, 0, 0.3);
@@ -32,8 +32,30 @@
         span#tz {
             font-size: 36px;
         }
+
+        div.anim-blink {
+            animation-name: blink;
+            animation-duration: 240ms;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            33% {
+                opacity: 1;
+            }
+            67% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
     </style>
     <script type="text/javascript">
+        let prevTz = "";
+
         window.setInterval(refreshCurrentDatetime, 1000)
 
         function httpGet(url) {
@@ -43,13 +65,30 @@
             return xmlHttp.responseText;
         }
 
+        function triggerAnimation(elem, animationClass) {
+            elem.classList.remove(animationClass);
+
+            void elem.offsetWidth;
+
+            elem.classList.add(animationClass);
+        }
+
         function refreshCurrentDatetime() {
+            const elem = document.getElementById("content");
             const expr = httpGet(`{{ url_for("get_current_dt_text") }}?${new URL(window.location.href).searchParams.toString()}`);
             const [date, time, tz] = expr.split("|", 3);
+
+            const tzChanged = (prevTz !== tz);
 
             document.getElementById("date").innerHTML = date;
             document.getElementById("time").innerHTML = time;
             document.getElementById("tz").innerHTML = tz;
+
+            if (tzChanged) {
+                triggerAnimation(elem, "anim-blink");
+            }
+
+            prevTz = tz;
         }
     </script>
 </head>
