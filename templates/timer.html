@@ -40,13 +40,20 @@
 
         .anim-time-up {
             animation-name: time-up;
-            animation-duration: 300ms;
-            animation-timing-function: ease-in;
+            animation-duration: 700ms;
+            animation-timing-function: cubic-bezier(1, 0, 1, 0);
+        }
+
+        .anim-shimmer {
+            animation-name: shimmer;
+            animation-duration: 400ms;
+            animation-timing-function: linear;
+            animation-iteration-count: 5;
         }
 
         @keyframes countdown-shock {
             0% {
-                font-size: 500vh;
+                font-size: 500vw;
             }
             100% {
                 font-size: revert;
@@ -58,12 +65,25 @@
                 font-size: revert;
             }
             100% {
-                font-size: 500vh;
+                font-size: 500vw;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                text-shadow: unset;
+            }
+            50% {
+                text-shadow: 0 0 2vh #ccc;
+            }
+            100% {
+                text-shadow: unset;
             }
         }
     </style>
     <script type="text/javascript">
         let prevIsNeg = false;
+        let prevIsTimer = false;
 
         window.setInterval(refreshTimer, 1000)
 
@@ -101,34 +121,46 @@
             const isNeg = status === "-";
             const isTimer = isPos || isNeg;
 
+            const onCountDown = () => {
+                if (!expr.includes(":")) {
+                    new Audio("{{ url_for("static", filename="se/countdown.mp3") }}").play();
+                    triggerAnimation(elem, "anim-countdown-shock")
+                }
+            };
+
+            const onTimeUp = () => {
+                if (prevIsNeg) {
+                    new Audio("{{ url_for("static", filename="se/timeup.mp3") }}").play();
+                    triggerAnimation(elem, "anim-time-up");
+                }
+            };
+
+            const triggerShimmer = () => {
+                if (prevIsNeg || !prevIsTimer) {
+                    triggerAnimation(elem, "anim-shimmer");
+                }
+            }
+
             if (isTimer) {
                 expr = expr.substring(1);
 
                 if (isPos) {
+                    onTimeUp();
+                    triggerShimmer();
                     updateTimerClass(elem, "count-up");
-
-                    if (prevIsNeg) {
-                        triggerAnimation(elem, "anim-time-up")
-                    }
                 } else if (isNeg) {
+                    onCountDown();
                     updateTimerClass(elem, "count-down");
-
-                    if (!expr.includes(":")) {
-                        new Audio("{{ url_for("static", filename="se/countdown.mp3") }}").play();
-                        triggerAnimation(elem, "anim-countdown-shock")
-                    }
                 }
             } else {
-                if (prevIsNeg) {
-                    new Audio("{{ url_for("static", filename="se/timeup.mp3") }}").play();
-                    triggerAnimation(elem, "anim-time-up")
-                }
+                onTimeUp();
                 updateTimerClass(elem, "message");
             }
 
             elem.innerHTML = expr;
 
             prevIsNeg = isNeg;
+            prevIsTimer = isTimer;
         }
     </script>
 </head>
