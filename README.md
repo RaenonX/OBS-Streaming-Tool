@@ -123,6 +123,9 @@ There is a configurable setting in `config.ini`:
 - `DisplaySec`: Time length in second(s) from time up to display the timer and remove the end message 
                 if `up` is `1` and `end_msg` is given. 
 
+- `SpecialSec`: If the current timer is countdown, and the time left is less than or equal to this number in seconds,
+                SE will be played, and some special effects will be applied for [timer](#/timer).
+
 ## Endpoints
 
 ### To be used on OBS

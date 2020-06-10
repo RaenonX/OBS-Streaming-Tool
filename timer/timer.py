@@ -8,6 +8,7 @@ _config = get_config()
 
 
 _DISPLAY_SEC = _config.getint("Timer", "DisplaySec")
+_SPECIAL_SEC = _config.getint("Timer", "SpecialSec")
 
 
 def _to_time_delta_expr(t_delta: timedelta, *, count_down: bool = False) -> str:
@@ -15,7 +16,7 @@ def _to_time_delta_expr(t_delta: timedelta, *, count_down: bool = False) -> str:
     m = (t_delta.seconds - 3600 * h) // 60
     s = t_delta.seconds % 60
 
-    if int(t_delta.total_seconds()) <= 15 and count_down:
+    if int(t_delta.total_seconds()) <= _SPECIAL_SEC and count_down:
         return str(s)
 
     if t_delta.total_seconds() < 10800:
