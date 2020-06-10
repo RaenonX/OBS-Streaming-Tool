@@ -114,11 +114,13 @@
                     updateTimerClass(elem, "count-down");
 
                     if (!expr.includes(":")) {
+                        new Audio("{{ url_for("static", filename="se/countdown.mp3") }}").play();
                         triggerAnimation(elem, "anim-countdown-shock")
                     }
                 }
             } else {
                 if (prevIsNeg) {
+                    new Audio("{{ url_for("static", filename="se/timeup.mp3") }}").play();
                     triggerAnimation(elem, "anim-time-up")
                 }
                 updateTimerClass(elem, "message");
