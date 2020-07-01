@@ -141,6 +141,7 @@ Marquee with styles applied.
 | :---: | :---: |
 | `div#content` | Content of the marquee |
 
+
 #### `/dt`
 
 Current timestamp expression with styles applied.
@@ -156,6 +157,7 @@ Check [this section](#Current-datetime) for configuring the corresponding settin
 | `span#date` | Date expression |
 | `span#time` | Time expression |
 | `span#tz` | Timezone expression |
+
 
 #### `/timer`
 
@@ -204,31 +206,17 @@ For example, to start counting up from 34 mins, set the parameter as `...?m=-34`
 | `div.message` | Timer which is expired, displaying end message |
 
 
-#### `/chrono`
+#### `/text`
 
-Similar to [/timer](#timer). The only difference is that [/timer](#timer) uses a timestamp as the changing point, 
-while this receives a time offset. The time offset will be counted down first, then do the same behavior as [/timer](#timer).
-
-The chrono will restart if the `Browser Source` is refreshed.
-
-To start counting up at the beginning, set the time with a negative value.
-
-For example, to start counting up from 34 mins, set the parameter as `...?m=-34`.
+Display the given text.
 
 | Parameter | Description | Type | Valid Values |
 | :---: |  :-------: |  :---: |  :---: | 
-| `d` | Days of the time offset. | Optional | Any numeric value |
-| `h` | Hours of the time offset. | Optional | Any numeric value |
-| `m` | Minutes of the time offset. | Optional | Any numeric value |
-| `s` | Seconds of the time offset. | Optional | Any numeric value |
-| `up` | If the timer should count up. | Optional | `0` or `1` |
-| `end_msg` | End message of the timer. | Optional | Any string |
+| `txt` | Text to be displayed | Optional | Any string |
 
 | Stylable CSS selector | Description |
 | :---: | :---: |
-| `div.count-up` | Timer which is counting up (now > dt) |
-| `div.count-down` | Timer which is counting down (dt > now) |
-| `div.message` | Timer which is expired, displaying end message |
+| `div.content` | Content of the text |
 
 
 ### For internal use or deeper customization

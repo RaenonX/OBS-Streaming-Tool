@@ -14,6 +14,16 @@ div.pos-center {
     transform: translate(-50%, -50%);
 }
 
+div.pos-y-middle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+div.w-100 {
+    width: 100vw;
+}
+
 div#frame {
     height: 100vh;
     width: 100vw;

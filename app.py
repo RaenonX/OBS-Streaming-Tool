@@ -31,6 +31,11 @@ def get_chrono():
     return redirect(url_for("get_timer", dt=datetime.now() + t_delta, **request.args))
 
 
+@app.route("/text")
+def get_text():
+    return render_template("text.html", text_content=request.args.get("txt", 0))
+
+
 @app.route("/content/marquee")
 def get_marquee_text():
     return get_internal_content()

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OBS Tool / Text</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/main.css") }}">
+    <style>
+        body {
+            font-family: "Microsoft JhengHei", serif;
+            font-size: 32px;
+
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="frame">
+    <div id="content" class="pos-y-middle w-100">{{ text_content }}</div>
+</div>
+</body>
+</html>
