@@ -34,7 +34,9 @@ For more functions, check the [endpoints](#endpoints) section.
 
 ## Setup
 
-### Marquee
+The `monospaced` texts alongside with the section title is the corresponding config file section name. 
+
+### Marquee `[Foobar2K] / [StaticText]`
 
 There are 3 components of the marquee:
 
@@ -104,7 +106,7 @@ There are 3 components of the marquee:
     
 ### Current datetime `[CurrentDatetime]`
 
-There are a few items to be configured in `config.ini`:
+There are some configurable settings in `config.ini`:
 
 - `Timezone`: list of timezones to be displayed. Separated by comma `,`.
 
@@ -116,9 +118,9 @@ There are a few items to be configured in `config.ini`:
     
 - `ToNext`: Count of the calls to change to the timezone.
 
-### Timer
+### Timer `[Timer]`
 
-There is a configurable setting in `config.ini`:
+There are some configurable settings in `config.ini`:
 
 - `DisplaySec`: Time length in second(s) from time up to display the timer and remove the end message 
                 if `up` is `1` and `end_msg` is given. 
@@ -200,6 +202,34 @@ For example, to start counting up from 34 mins, set the parameter as `...?m=-34`
 | `div.count-up` | Timer which is counting up (now > dt) |
 | `div.count-down` | Timer which is counting down (dt > now) |
 | `div.message` | Timer which is expired, displaying end message |
+
+
+#### `/chrono`
+
+Similar to [/timer](#timer). The only difference is that [/timer](#timer) uses a timestamp as the changing point, 
+while this receives a time offset. The time offset will be counted down first, then do the same behavior as [/timer](#timer).
+
+The chrono will restart if the `Browser Source` is refreshed.
+
+To start counting up at the beginning, set the time with a negative value.
+
+For example, to start counting up from 34 mins, set the parameter as `...?m=-34`.
+
+| Parameter | Description | Type | Valid Values |
+| :---: |  :-------: |  :---: |  :---: | 
+| `d` | Days of the time offset. | Optional | Any numeric value |
+| `h` | Hours of the time offset. | Optional | Any numeric value |
+| `m` | Minutes of the time offset. | Optional | Any numeric value |
+| `s` | Seconds of the time offset. | Optional | Any numeric value |
+| `up` | If the timer should count up. | Optional | `0` or `1` |
+| `end_msg` | End message of the timer. | Optional | Any string |
+
+| Stylable CSS selector | Description |
+| :---: | :---: |
+| `div.count-up` | Timer which is counting up (now > dt) |
+| `div.count-down` | Timer which is counting down (dt > now) |
+| `div.message` | Timer which is expired, displaying end message |
+
 
 ### For internal use or deeper customization
 
