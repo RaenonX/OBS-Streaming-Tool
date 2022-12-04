@@ -123,14 +123,18 @@
 
             const onCountDown = () => {
                 if (!expr.includes(":")) {
-                    new Audio("{{ url_for("static", filename="se/countdown.mp3") }}").play();
+                    let audio = new Audio("{{ url_for("static", filename="se/countdown.mp3") }}");
+					audio.volume = 0.5;
+					audio.play();
                     triggerAnimation(elem, "anim-countdown-shock")
                 }
             };
 
             const onTimeUp = () => {
                 if (prevIsNeg) {
-                    new Audio("{{ url_for("static", filename="se/timeup.mp3") }}").play();
+                    let audio = new Audio("{{ url_for("static", filename="se/timeup.mp3") }}");
+					audio.volume = 0.5;
+					audio.play();
                     triggerAnimation(elem, "anim-time-up");
                 }
             };
